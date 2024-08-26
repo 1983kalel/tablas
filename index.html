@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Aprende las Tablas de Multiplicar!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        #question {
+            font-size: 2em;
+            color: #4ecdc4;
+            margin-bottom: 20px;
+        }
+        input {
+            font-size: 1.5em;
+            width: 100px;
+            padding: 10px;
+            border: 2px solid #4ecdc4;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff8787;
+        }
+        #message {
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Aprende las Tablas de Multiplicar!</h1>
+        <div id="question"></div>
+        <input type="number" id="answer" placeholder="Tu respuesta">
+        <button onclick="checkAnswer()">Comprobar</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        let currentQuestion = {};
+
+        function generateQuestion() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            currentQuestion = {
+                num1: num1,
+                num2: num2,
+                answer: num1 * num2
+            };
+            document.getElementById('question').textContent = `${num1} x ${num2} = ?`;
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const messageElement = document.getElementById('message');
+
+            if (userAnswer === currentQuestion.answer) {
+                messageElement.textContent = '¡Excelente! ¡Lo has logrado! 🎉';
+                messageElement.style.color = '#4ecdc4';
+                setTimeout(() => {
+                    generateQuestion();
+                    document.getElementById('answer').value = '';
+                    messageElement.textContent = '';
+                }, 1500);
+            } else {
+                messageElement.textContent = 'Inténtalo otra vez. ¡Tú puedes! 💪';
+                messageElement.style.color = '#ff6b6b';
+            }
+        }
+
+        generateQuestion();
+    </script>
+</body>
+</html>
